@@ -16,6 +16,9 @@ const globalStyles = (
         fontSize: "20px",
         backgroundColor: "#303841",
         color: "#eeeeee",
+        "-webkit-user-select": 'none',
+        "-ms-user-select": 'none',
+        "user-select": 'none',
       },
     })}
   />
@@ -23,8 +26,8 @@ const globalStyles = (
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-          {globalStyles}
+    {globalStyles}
 
-    <App/>
+    <App />
   </React.StrictMode>
 );

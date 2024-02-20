@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 
 const WordToggler = ({ word,isWordVisible }) => {
   return (
     <div style={{ userSelect: 'none' }}>
-      {isWordVisible ? <p>{word}</p> : <p>HIDDEN</p>}
+      {isWordVisible ? <p>{word}</p> : <p>HOLD TO SHOW WORD</p>}
     </div>
   );
 };
