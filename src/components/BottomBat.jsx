@@ -1,8 +1,13 @@
-import { Button } from "@mui/material";
+import { Button } from '@mui/material';
 
-const BottomBar = ({isNextButtonDisabled, incrementPlayerIndex}) => {
+const BottomBar = ({ handleNextPlayer, isNextPlayerButtonDisabled }) => {
   return (
-    <Button disabled={isNextButtonDisabled} onClick={incrementPlayerIndex} variant="contained" color="primary">
+    <Button
+      disabled={isNextPlayerButtonDisabled}
+      onClick={handleNextPlayer}
+      variant="contained"
+      color="primary"
+    >
       Next player
     </Button>
   );
