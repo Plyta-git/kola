@@ -3,10 +3,16 @@ import { Button, TextField, Box } from '@mui/material';
 import { useGame } from '../contexts/GameContext';
 
 const StartGamePage = () => {
-  const [numPlayers, setNumPlayers] = useState(3);
-  const [wordToGuess, setWordToGuess] = useState('');
-  const [numMafia, setNumMafia] = useState(1);
-  const { startGame } = useGame();
+  const {
+    startGame,
+    numPlayers: playerInit,
+    word,
+    numMafia: mafiaInit,
+  } = useGame();
+
+  const [numPlayers, setNumPlayers] = useState(playerInit);
+  const [wordToGuess, setWordToGuess] = useState(word);
+  const [numMafia, setNumMafia] = useState(mafiaInit);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -29,7 +35,7 @@ const StartGamePage = () => {
       <TextField
         label="Number of Mafia"
         type="number"
-        InputProps={{ inputProps: { max: numPlayers - 1 } }}
+        InputProps={{ inputProps: { min: 1, max: numPlayers - 1 } }}
         value={numMafia}
         onChange={(e) => setNumMafia(e.target.value)}
       />
@@ -37,6 +43,7 @@ const StartGamePage = () => {
         label="Word to Guess"
         type="text"
         value={wordToGuess}
+        required
         onChange={(e) => setWordToGuess(e.target.value)}
       />
       <Button variant="contained" type="submit">

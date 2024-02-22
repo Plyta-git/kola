@@ -4,7 +4,6 @@ import { useGame } from './contexts/GameContext';
 
 const App = () => {
   const { isGameStarted } = useGame();
-  console.log(isGameStarted);
   return isGameStarted ? <GuessWordPage /> : <StartGamePage />;
 };
 

@@ -4,7 +4,8 @@ const GameContext = createContext();
 
 export const GameProvider = ({ children }) => {
   const [word, setWord] = useState('');
-  const [numPlayers, setNumPlayers] = useState(0);
+  const [numPlayers, setNumPlayers] = useState(3);
+  const [numMafia, setNumMafia] = useState(1);
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
   const [isGameStarted, setIsGameStarted] = useState(false);
   const [mafiaIds, setMafiaIds] = useState([]);
@@ -13,7 +14,7 @@ export const GameProvider = ({ children }) => {
     const newMafiaIds = [];
     while (newMafiaIds.length < numMafia) {
       const random = Math.floor(Math.random() * numPlayers);
-      if (!newMafiaIds.includes(random)) {
+      if (!newMafiaIds.includes(random) && random !== 0) {
         newMafiaIds.push(random);
       }
     }
@@ -22,18 +23,23 @@ export const GameProvider = ({ children }) => {
   };
 
   const incrementCurrentPlayerIndex = () => {
-    if (currentPlayerIndex >= numPlayers) {
+    setCurrentPlayerIndex((prev) => prev + 1);
+    if (currentPlayerIndex >= numPlayers - 1) {
       setIsGameStarted(false);
     }
-    setCurrentPlayerIndex((prev) => prev + 1);
   };
 
   const startGame = (word, numPlayers, numMafia) => {
     setWord(word);
-    incrementCurrentPlayerIndex();
     setNumPlayers(numPlayers);
-    setIsGameStarted(true);
+    setNumMafia(numMafia);
     generateMafiaIds(numMafia, numPlayers);
+    setCurrentPlayerIndex(0);
+    setIsGameStarted(true);
+  };
+
+  const isMafia = () => {
+    return mafiaIds.includes(currentPlayerIndex);
   };
 
   return (
@@ -46,6 +52,8 @@ export const GameProvider = ({ children }) => {
         numPlayers,
         currentPlayerIndex,
         startGame,
+        isMafia,
+        numMafia,
       }}
     >
       {children}

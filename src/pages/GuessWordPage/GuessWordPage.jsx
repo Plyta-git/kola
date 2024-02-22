@@ -18,15 +18,15 @@ const GuessWordPage = () => {
     setTo(true);
     setTimeout(() => {
       setTo(false);
-    }, 3000);
+    }, 1000);
   };
 
   const isNextPlayerButtonDisabled = to || !didPlayerSawWord;
-
+  const playerText =
+    currentPlayerIndex != 0 ? `Player: ${currentPlayerIndex + 1}` : 'Game host';
   return (
     <Box
       sx={{
-        opacity: didPlayerSawWord ? 1 : 0.8,
         backgroundColor: to ? 'black' : getColor(currentPlayerIndex),
         height: '80vh',
         width: '100vw',
@@ -35,7 +35,7 @@ const GuessWordPage = () => {
         justifyContent: 'space-between',
       }}
     >
-      {!to && <Typography>Player: {currentPlayerIndex}</Typography>}
+      {!to && <Typography>{playerText}</Typography>}
       <WordToggle
         textOnCard={textOnCard}
         to={to}

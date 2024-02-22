@@ -1,11 +1,13 @@
 import { Box, Typography } from '@mui/material';
 import React, { useState } from 'react';
+import { useGame } from '../contexts/GameContext';
 const waitingWorld = 'Pass phone to the next player';
 
 const WordToggler = ({ to, wordSeen, textOnCard }) => {
   const [isWordVisible, setIsWordVisible] = useState(false);
-
+  const { word, isMafia } = useGame();
   const handleMouseDown = () => {
+    if (to) return;
     setIsWordVisible(true);
     wordSeen();
   };
@@ -32,7 +34,11 @@ const WordToggler = ({ to, wordSeen, textOnCard }) => {
         <Typography>{waitingWorld}</Typography>
       ) : (
         <div style={{ userSelect: 'none' }}>
-          {isWordVisible ? <p>{'word'}</p> : <p>{textOnCard}</p>}
+          {isWordVisible ? (
+            <p>{isMafia() ? 'mafia' : word}</p>
+          ) : (
+            <p>{textOnCard}</p>
+          )}
         </div>
       )}
     </Box>
